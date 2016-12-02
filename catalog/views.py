@@ -31,7 +31,17 @@ class CategorysListView(ListView):
 
         for category in descendants:
             context['products'].extend(Product.objects.filter(product_category_id=category.id))
-
+        context['color'] = set()
+        context['sizes'] = set()
+        context['material'] = set()
+        context['manuf'], context['model'], context['attrs'] = set(), set(), set()
+        for prod in context['products']:
+            context['color'].update(prod.product_color.filter(product_color=prod.id))
+            context['sizes'].update(prod.product_size.filter(product_size=prod.id))
+            context['material'].add(prod.product_material)
+            context['manuf'].add(prod.product_manufacturer)
+            context['model'].add(prod.product_model)
+            context['attrs'].update(prod.product_attributes.filter(product_attributes=prod.id))
         return context
 
 
@@ -41,16 +51,11 @@ class ProductDetailView(DetailView):
     pk_url_kwarg = 'prod_id'
     context_object_name = 'prod'
 
-    # def get(self, request, *arg, **kwargs):
-    #     if kwargs['prod_id']:
-    #         self.prod_id = kwargs['prod_id']
-    #
-    #     return super(ProductDetailView, self).get(self, request, *arg, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         #prod = get_object_or_404(Product, id=self.prod_id)
         prod = context['prod']
+        context['color'] = prod.product_color.filter(product_color=prod.id)
         context['crombs'] = Category.objects.get(id=prod.product_category_id).get_ancestors(include_self=True)
 
         return context

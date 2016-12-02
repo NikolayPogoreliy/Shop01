@@ -18,14 +18,14 @@
     <ul>
     {% for prod in products %}
         <li>
-            <a href="{% url "product" prod.id %}">{{ prod.product_name }}</a>
+            <a href="{% url "product" prod.id %}">{{ prod.product_name }}{{ prod.product_color }}</a>
         </li>
     {% endfor %}
 
     </ul>
 </div>
 <div>
-    Family: {{ family }}
+    Size: {{ sizes }}
 </div>
 <div>
     Leaf: {{ leaf }}
@@ -34,7 +34,7 @@
     desc: {{ descendants }}
 </div>
 <div>
-    Root: {{ root }}
+    Colors: {{ color }}
 </div>
 <div>
     Ancestors: {{ ancestor }}
