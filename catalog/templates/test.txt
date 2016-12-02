@@ -1,0 +1,21 @@
+SubCategorys: [<Category: cat112>, <Category: cat111>]
+Products: [[], []]
+Family: [[<Category: cat 01>, <Category: cat 11>, <Category: cat112>], [<Category: cat 01>, <Category: cat 11>, <Category: cat111>]]
+Leaf: [[], []]
+desc: [[<Category: cat112>], [<Category: cat111>]]
+Root: [<Category: cat 01>, <Category: cat 01>]
+Category: cat 11 is leaf: False
+Children: [[], []]
+Siblings: [[<Category: cat111>], [<Category: cat112>]]
+
+
+SubCategorys: [<Category: cat12>, <Category: cat 11>]
+Products: [[], [<Product: prod2_c11>, <Product: prod1_c11>]]
+Family: [[<Category: cat 01>, <Category: cat12>], [<Category: cat 01>, <Category: cat 11>, <Category: cat111>, <Category: cat112>]]
+Leaf: [[], [<Category: cat111>, <Category: cat112>]]
+desc: [[<Category: cat12>], [<Category: cat 11>, <Category: cat111>, <Category: cat112>]]
+Root: [<Category: cat 01>, <Category: cat 01>]
+Category: cat 01 is leaf: False
+Children: [[], [<Category: cat111>, <Category: cat112>]]
+Siblings: [[<Category: cat 11>], [<Category: cat12>]]
+Категории уровня 0 [<Category: cat 01>, <Category: cat 02>, <Category: cat 03>, <Category: cat 04>]

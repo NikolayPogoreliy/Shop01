@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block subcats %}
+<div>
+    SubCategorys: {{ subcat }}
+    <ul>
+    {% for cats in  subcat%}
+        <li>
+            <a href="{% url "categories" cats.id %}">{{ cats.category_name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+
+</div>
+<div>
+    Products: {{ products }}
+    <ul>
+    {% for prod in products %}
+        <li>
+            <a href="{% url "product" prod.id %}">{{ prod.product_name }}</a>
+        </li>
+    {% endfor %}
+
+    </ul>
+</div>
+<div>
+    Family: {{ family }}
+</div>
+<div>
+    Leaf: {{ leaf }}
+</div>
+<div>
+    desc: {{ descendants }}
+</div>
+<div>
+    Root: {{ root }}
+</div>
+<div>
+    Ancestors: {{ ancestor }}
+</div>
+<div>
+    Category: {{ category }} is leaf: {{ category.is_leaf_node }}
+</div>
+<div>
+    Children: {{ child }}
+</div>
+<div>
+    Siblings: {{ sibling }}
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block subcats %}
+<div> Bread crombs //
+    {% for cromb in crombs %}
+        <a href="{% url "categories" cromb.id %}">{{ cromb.category_name }}</a> /
+    {% endfor %}
+
+</div>
+<div> Product
+    {{ prod.product_name }}
+</div>
+{% endblock %}

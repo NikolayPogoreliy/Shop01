@@ -1,0 +1,61 @@
+{% load staticfiles %}
+{% load main_menu %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<header style="background-color: darkseagreen"> <!-- TODO: bg-color must be deleted -->
+    {% main_menu as item %}
+    <ul>
+    {% for keyl0, valuel0 in item.tree_to_L2.items %}
+        <li><a href="{% url "categories" keyl0.id %}">{{ keyl0.category_name }}</a>
+            <ul>
+            {% for keyl1, valuesl1 in valuel0.items %}
+                <li><a href="{% url "categories" keyl1.id %}"> {{ keyl1.category_name}}</a>
+                    <ul>
+                    {% for value in valuesl1%}
+                        <li><a href="{% url "categories" value.id %}">{{ value.category_name }}</a> </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+
+</header>
+
+<main>
+    {% block subcats %}{% endblock %}
+
+
+    {% comment %}<div id="menu" >Категории уровня 0 {{ item.cats }} </div>
+    <div>Tree L0 to L2: {{ item.tree_to_L2 }}</div>{% endcomment %}
+    {% comment %}<ul>
+    {% for cat in item.cats %}
+        <li>{{ cat.category_name }}
+            <ul>
+                <li>ID: {{ cat.id }}</li>
+                <li>Parent: {{ cat.parent }}</li>
+                <li>Parent_id: {{ cat.parent_id }}</li>
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>{% endcomment %}
+
+
+
+
+</main>
+
+<footer></footer>
+
+</body>
+</html>
