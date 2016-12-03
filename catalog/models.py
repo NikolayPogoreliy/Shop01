@@ -98,7 +98,7 @@ class ProductModel(models.Model):
 class Manufacturer(models.Model, ImageUploader):
     folder_name = 'logo'
     manufacturer_name = models.CharField(max_length=50, blank=True, verbose_name='Производитель')
-    manufacturer_logo = models.ImageField(upload_to=ImageUploader.make_upload_path, default='', verbose_name='Логотип производителя')
+    manufacturer_logo = models.ImageField(upload_to=ImageUploader.make_upload_path, default='',blank=True, null=True, verbose_name='Логотип производителя')
     manufacturer_country = models.CharField(max_length=40, blank=True, verbose_name='Страна')
 
     def __str__(self):
@@ -131,9 +131,12 @@ class Product(models.Model, ImageUploader):
     folder_name = 'product_category'
     product_category = models.ForeignKey(Category, verbose_name='Категория', related_name='product_category')
     product_name = models.CharField(max_length=100, default='', verbose_name='Товар')
-    product_manufacturer = models.ForeignKey(Manufacturer, blank=True, null=True, verbose_name='Производитель')
-    product_model = models.ForeignKey(ProductModel, blank=True, null=True, verbose_name='Модель')
-    product_material = models.ForeignKey(Material,blank=True, null=True, default=None, verbose_name='Материал', related_name='product_material')
+    product_manufacturer = models.ForeignKey(Manufacturer, blank=True, null=True, verbose_name='Производитель',
+                                             related_name='product_manufacturer')
+    product_model = models.ForeignKey(ProductModel, blank=True, null=True, verbose_name='Модель',
+                                      related_name='product_model')
+    product_material = models.ForeignKey(Material,blank=True, null=True, default=None, verbose_name='Материал',
+                                         related_name='product_material')
     product_size = models.ManyToManyField(Size, verbose_name='Размер', related_name='product_size')
     product_color = models.ManyToManyField(Color, verbose_name='Цвет', related_name='product_color')
     product_attributes = models.ManyToManyField(Attributes, blank=True, null=True, verbose_name='Атрибуты',
