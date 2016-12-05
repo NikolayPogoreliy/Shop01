@@ -1,6 +1,12 @@
 {% extends 'index.html' %}
 
 {% block subcats %}
+<div> Bread crombs //
+    {% for cromb in crombs %}
+        <a href="{% url "categories" cromb.id %}">{{ cromb.category_name }}</a> /
+    {% endfor %}
+
+</div>
 <div>
     SubCategorys: {{ subcat }}
     <ul>
@@ -25,7 +31,7 @@
     </ul>
 </div>
 <div>
-    Size: {{ product_sizes }}
+    Size: {{ product_size }}
 </div>
 <div>
     Brend: {{ product_manufacturer }}
@@ -37,16 +43,14 @@
     Colors: {{ product_color }}
 </div>
 <div>
-    Ancestors: {{ ancestor }}
+    Model: {{ product_model }}
 </div>
+
 <div>
     Category: {{ category }} is leaf: {{ category.is_leaf_node }}
 </div>
 <div>
     Children: {{ child }}
-</div>
-<div>
-    Model: {{ product_model }}
 </div>
 {% endblock %}
 

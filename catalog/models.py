@@ -170,6 +170,18 @@ class Product(models.Model, ImageUploader):
         verbose_name_plural = 'Товары'
 
 
+# class ColorsToProduct(models.Model):
+#     target_id = models.ForeignKey(Product)
+#     source_id = models.ForeignKey(Color)
+#
+# class SizeToProduct(models.Model):
+#     target_id = models.ForeignKey(Product)
+#     source_id = models.ForeignKey(Size)
+#
+# class AttributesToProduct(models.Model):
+#     target_id = models.ForeignKey(Product)
+#     source_id = models.ForeignKey(Attributes)
+
 class Images(models.Model, ImageUploader):
     folder_name = 'images_productName'
     images_productName = models.ForeignKey(Product, blank=True, null=True, verbose_name='Продукт')
