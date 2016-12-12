@@ -1,7 +1,6 @@
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from catalog.models import *
 from django.views.generic.list import ListView
-from mptt.querysets import *
 from django.views.generic.detail import DetailView
 # Create your views here.
 
@@ -50,14 +49,14 @@ class CategorysListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategorysListView,self).get_context_data(**kwargs)
-        cat = get_object_or_404(Category, id=self.cat_id)      #Вытягиваем указанную категорию
-                                                                #Если категории с таким ID нет - page404
+        cat = get_object_or_404(Category, id=self.cat_id)   #Вытягиваем указанную категорию
+                                                            #Если категории с таким ID нет - page404
 
         context['category'] = cat
         context['subcat'] = cat.get_children() #Дочерние (на уровень ниже) категории для отображения в подменю
-        context['crombs'] = cat.get_ancestors(ascending=False, include_self=True) #Все родительские категории для
+        context['crumbs'] = cat.get_ancestors(ascending=False, include_self=True) #Все родительские категории для
                                                                                     # хлебных крошек
-        descendants = cat.get_descendants(include_self=True)    # Получаем всех потомков (от текущего уровня и до листа,
+        descendants = cat.get_descendants(include_self=True)    # Получаем всех потомков (от текущего уровня и до L2,
                                                                 #  по всем ветвям), родителем которых является заданная
                                                                 # категория
         # Получаем общий список товаров для всех категорий-потомков, и текущей категории
@@ -78,6 +77,10 @@ class CategorysListView(ListView):
         return context
 
 
+
+
+
+
 class ProductDetailView(DetailView):
     template_name = 'product.html'
     queryset = Product.objects.all()
@@ -88,8 +91,8 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
 
         product = context['product']
-        context['color'] = product.product_color.filter(product_color=product.id) #TODO: may be to DELETE
-        context['crombs'] = Category.objects.get(id=product.product_category_id).get_ancestors(include_self=True)
+        #context['color'] = product.product_color.filter(product_color=product.id) #TODO: may be to DELETE
+        context['crumbs'] = Category.objects.get(id=product.product_category_id).get_ancestors(include_self=True)
         keys=[
             'product_color',
             'product_size',

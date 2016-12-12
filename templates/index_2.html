@@ -1,0 +1,99 @@
+{% load staticfiles %}
+{% load main_menu %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "static/css/foundation.min.css" %}">
+    <link rel="stylesheet" href="{% static "static/css/app.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+<script>
+    $('.hidable').css('display','none');
+
+    function show(id){
+        $('.hidable').css('display','none');
+        $(id).css('display','inline-block');
+    }
+    function hide(){
+        $('.hidable').css('display','none');
+    }
+</script>
+<header class="row">
+    {% main_menu as item %}
+    <div class="columns row" >
+        <div class="row large-up-8" >
+
+
+                {% for keyl0 in item.tree_to_L2.keys %}
+                    <a class="column" href="{% url "categories" keyl0.id %}" onmouseover="show('#{{ keyl0.id }}')" > <div>{{ keyl0.category_name }}</div></a>
+                {% endfor %}
+        </div>
+        {% comment %}<div class="row">{% endcomment %}
+                {% for keyl0, valuel0 in item.tree_to_L2.items %}
+                        <div class="column large-12 hidable" id="{{ keyl0.id }}" onmouseover="hide()">
+                            <div class="column row large-up-6">
+                            {% for keyl1, valuesl1 in valuel0.items %}
+                                <div class="column">
+                                    <p class="float-center"> <a href="{% url "categories" keyl1.id %}"> {{ keyl1.category_name}}</a></p>
+                                    <div class="column large-6">
+                                        <img class="thumbnail" src="{{ keyl1.category_image }}"/>
+                                    </div>
+                                    <div class="column large-6">
+                                        <ul class="no-bullet">
+                                        {% for value in valuesl1%}
+                                            <li><a href="{% url "categories" value.id %}">{{ value.category_name }}</a> </li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+
+                {% endfor %}
+    </div>
+
+        {% comment %}</div>{% endcomment %}
+
+
+
+</header>
+
+<main>
+    {% block subcats %}{% endblock %}
+
+
+    {% comment %}<div id="menu" >Категории уровня 0 {{ item.cats }} </div>
+    <div>Tree L0 to L2: {{ item.tree_to_L2 }}</div>{% endcomment %}
+    {% comment %}<ul>
+    {% for cat in item.cats %}
+        <li>{{ cat.category_name }}
+            <ul>
+                <li>ID: {{ cat.id }}</li>
+                <li>Parent: {{ cat.parent }}</li>
+                <li>Parent_id: {{ cat.parent_id }}</li>
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>{% endcomment %}
+
+
+
+
+</main>
+
+<footer></footer>
+    <script src="{% static "static/js/vendor/jquery.js" %}"></script>
+    <script src="{% static "static/js/vendor/what-input.js"%}"></script>
+    <script src="{% static "static/js/vendor/foundation.min.js"%}"></script>
+    <script src="{% static "static/js/app.js"%}"></script>
+
+
+</body>
+</html>

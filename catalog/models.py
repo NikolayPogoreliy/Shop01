@@ -38,6 +38,11 @@ class Category(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['category_name']
 
+    # def save(self):
+    #     if self.level < 3:
+    #         return super().save(self)
+    #     else:pass
+
 
 class Material(models.Model):
     material_name = models.CharField(max_length=50, default='', verbose_name='Материал')

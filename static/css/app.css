@@ -1,0 +1,45 @@
+
+
+a:hover{
+    color: #dd0017;
+}
+
+.dropdown-pane, .dropdown-pane>*{
+
+    z-index: 100;
+}
+
+.dropdown-pane{
+    position: relative;
+    left: 0 !important;
+    top: 0 !important;;
+    right: 80rem !important;
+    width: 80rem !important;
+    display:none;
+
+}
+
+.dropdown-pane.is-open{
+    display: inline-block;
+
+}
+
+
+/* TODO: must be deleted*/
+.row{
+    border: gray dotted 1px;
+    border-collapse: collapse;
+}
+.breadcrumbs{
+    font-size: large;
+    align-content: center;
+    vertical-align: middle;
+    margin: 0.5rem 0 0.5rem 0;
+}
+.breadcrumbs a{
+    color: darkcyan;
+}
+
+.breadcrumbs .disabled a{
+    color: darkred !important;
+}

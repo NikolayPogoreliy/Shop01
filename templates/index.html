@@ -6,33 +6,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static "static/css/foundation.min.css" %}">
+    <link rel="stylesheet" href="{% static "static/css/app.css" %}">
 </head>
 
 <body>
 
-<header style="background-color: darkseagreen"> <!-- TODO: bg-color must be deleted -->
+<header class="row">
     {% main_menu as item %}
-    <ul>
-    {% for keyl0, valuel0 in item.tree_to_L2.items %}
-        <li><a href="{% url "categories" keyl0.id %}">{{ keyl0.category_name }}</a>
-            <ul>
-            {% for keyl1, valuesl1 in valuel0.items %}
-                <li><a href="{% url "categories" keyl1.id %}"> {{ keyl1.category_name}}</a>
-                    <ul>
-                    {% for value in valuesl1%}
-                        <li><a href="{% url "categories" value.id %}">{{ value.category_name }}</a> </li>
-                    {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="row column large-up-8">
+        <a class="column text-center" href="{% url "home" %}">Home</a>
+        {% for keyl0 in item.tree_to_L2.keys %}
+            <a class="column text-center" href="{% url "categories" keyl0.id %}" data-toggle="{{ keyl0.id }}"> <div>{{ keyl0.category_name }}</div></a>
+        {% endfor %}
+    </div>
+    <div class="row column">
+        {% for keyl0, valuel0 in item.tree_to_L2.items %}
+            {% if valuel0 %}
+            <div class="dropdown-pane" id="{{ keyl0.id }}" data-dropdown data-hover="true" data-hover-pane="true" >
 
+                <div class="row large-up-6">
+                    {% for keyl1, valuesl1 in valuel0.items %}
+                        <div class="column">
+                            <p class="float-center"> <a href="{% url "categories" keyl1.id %}"> {{ keyl1.category_name}}</a></p>
+                            <div class="column large-6">
+                                <img class="thumbnail" src="{{ keyl1.category_image }}"/>
+                            </div>
+                            <div class="column large-6">
+                                <ul class="no-bullet">
+                                    {% for value in valuesl1%}
+                                        <li><a href="{% url "categories" value.id %}">{{ value.category_name }}</a> </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </header>
 
-<main>
+<main class="row">
     {% block subcats %}{% endblock %}
 
 
@@ -56,6 +73,9 @@
 </main>
 
 <footer></footer>
-
+    <script src="{% static "static/js/vendor/jquery.js" %}"></script>
+    <script src="{% static "static/js/vendor/what-input.js"%}"></script>
+    <script src="{% static "static/js/vendor/foundation.min.js"%}"></script>
+    <script src="{% static "static/js/app.js"%}"></script>
 </body>
 </html>

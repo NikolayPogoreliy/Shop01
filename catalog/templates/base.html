@@ -1,57 +1,92 @@
 {% extends 'index.html' %}
 
 {% block subcats %}
-<div> Bread crombs //
-    {% for cromb in crombs %}
-        <a href="{% url "categories" cromb.id %}">{{ cromb.category_name }}</a> /
-    {% endfor %}
+    {% if crumbs %}
+    <nav class="row column menu-centered" aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+            {% for crumb in crumbs %}
+            <li {% if crumb.id == category.id %} class="disabled" {% endif %}>
+                <a href="{% url "categories" crumb.id %}">{{ crumb.category_name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+<div class="column large-2">
+    <div class="column">
+
+        <ul>
+            {% for size in product_size %}
+            <li>
+            {{ size }}
+            </li>
+            {% endfor %}
+        </ul>
+
+
+    </div>
+    <div class="column">
+
+        <ul>
+            {% for man in product_manufacturer %}
+            <li>{{ man }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="column">
+        <ul>
+            {% for mat in product_material %}
+            <li>{{ mat }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="column">
+        <ul>
+            {% for color in product_color %}
+            <li>{{ color }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="column">
+        <ul>
+            {%  for model in product_model %}
+            <li>{{ model }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
 </div>
-<div>
-    SubCategorys: {{ subcat }}
-    <ul>
-    {% for cats in  subcat%}
-        <li>
-            <a href="{% url "categories" cats.id %}">{{ cats.category_name }}</a>
-        </li>
-    {% endfor %}
-    </ul>
 
-
-</div>
-<div>
-    Products: {{ products }}
-    <ul>
-    {% for prod in products %}
-        <li>
-            <a href="{% url "product" prod.id %}">{{ prod.product_name }}{{ prod.product_color }}</a>
-        </li>
-    {% endfor %}
-
-    </ul>
-</div>
-<div>
-    Size: {{ product_size }}
-</div>
-<div>
-    Brend: {{ product_manufacturer }}
-</div>
-<div>
-    Material: {{ product_material}}
-</div>
-<div>
-    Colors: {{ product_color }}
-</div>
-<div>
-    Model: {{ product_model }}
+<div class="column large-10">
+    {% if subcat %}
+    <div class="row column menu-centered">
+        <ul class="menu">
+        {% for cats in  subcat%}
+            <li>
+                <a href="{% url "categories" cats.id %}"><img src="/media/{{ cats.category_image }}" alt="{{ cats.category_name }}"></a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="row column">
+        <div class="column large-2 large-offset-10">
+            <select>
+                <option value="ononon"> Oneoneoen </option>
+                <option value="two"> Twotwotwo </option>
+                <option value="three"> Threethree </option>
+            </select>
+        </div>
+    </div>
+    <div class="row column large-up-4">
+        {% for prod in products %}
+        <div class="column">
+            <a href="{% url "product" prod.id %}">{{ prod.product_name }}</a>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
-<div>
-    Category: {{ category }} is leaf: {{ category.is_leaf_node }}
-</div>
-<div>
-    Children: {{ child }}
-</div>
 {% endblock %}
 
 
