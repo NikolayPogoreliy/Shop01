@@ -77,5 +77,18 @@
     <script src="{% static "static/js/vendor/what-input.js"%}"></script>
     <script src="{% static "static/js/vendor/foundation.min.js"%}"></script>
     <script src="{% static "static/js/app.js"%}"></script>
+
+    <script>
+{% comment %}/*$(document).ready(
+    function(){
+            $('.ordering').removeAttr('selected');
+            $('#{{ selected }}').attr('selected','selected');
+        }
+)*/{% endcomment %}
+
+{#            /*$('.ordering').removeAttr('selected');*/#}
+            $('#{{ selected }}').attr('selected','selected');
+{#            /*$('.ordering :selected').attr('selected','selected');*/#}
+    </script>
 </body>
 </html>

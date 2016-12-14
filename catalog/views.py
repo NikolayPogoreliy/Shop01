@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from catalog.models import *
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.conf import settings
 # Create your views here.
 
 
@@ -25,14 +26,7 @@ def get_product_attr(keys, *args):
                 attr[key].update(getattr(object,key).all())
             except:
                 attr[key].add(getattr(object, key))
-        # attr['product_color'].update(object.product_color.filter(product_color=object.id))
-        # attr['product_sizes'].update(object.product_size.filter(product_size=object.id))
-        # attr['product_attributes'].update(object.product_attributes.filter(product_attributes=object.id))
-        # try:
-        #     attr['product_material'].add(object.product_material)
-        #     attr['product_manufacturer'].add(object.product_manufacturer)
-        #     attr['product_model'].add(object.product_model)
-        # except: pass
+
     return attr
 
 
@@ -40,11 +34,14 @@ def get_product_attr(keys, *args):
 class CategorysListView(ListView):
     template_name = 'base.html'
     queryset = Category.objects.all()
-
+    sort = 0
+    selected = ''
     def get(self, request, *arg, **kwargs):
         if self.kwargs['cat_id']: 
             self.cat_id = self.kwargs['cat_id']
-
+        if request.GET:
+            self.sort = request.GET.get('sort', 0)
+            self.selected = 'sel_'+str(self.sort)
         return super(CategorysListView, self).get(request, *arg, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -60,9 +57,11 @@ class CategorysListView(ListView):
                                                                 #  по всем ветвям), родителем которых является заданная
                                                                 # категория
         # Получаем общий список товаров для всех категорий-потомков, и текущей категории
-        products = []
-        for category in descendants:
-            products.extend(Product.objects.filter(product_category_id=category.id))
+        #products = []
+        #for category in descendants:
+            #products.extend(Product.objects.filter(product_category=category))
+        sort_method = settings.PRODUCT_ORDERING_SET[int(self.sort)][0]
+        products = Product.objects.filter(product_category__in=descendants).order_by(sort_method)
         context['products'] = products
         keys = [
             'product_color',
@@ -72,13 +71,13 @@ class CategorysListView(ListView):
             'product_model',
             'product_manufacturer',
             ]
+        context['sort_options'] = [option[1] for option in settings.PRODUCT_ORDERING_SET]
+        #context['sort'] = settings.PRODUCT_ORDERING_SET[int(self.sort)][0]
+        #context['sort'] = self.sort
+        context['selected'] = self.selected
 
         context.update(get_product_attr(keys, *products))
         return context
-
-
-
-
 
 
 class ProductDetailView(DetailView):

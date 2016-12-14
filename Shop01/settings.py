@@ -141,3 +141,12 @@ STATICFILES_DIRS = [
     ('static','static'),
 ]
 IMAGE_UPLOAD_DIR = 'img'
+
+PRODUCT_ORDERING_SET = [
+    ['product_ordering', 'По умолчанию','acs'],
+    ['product_name', 'По названию А - Я', 'asc'],
+    ['-product_name', 'По названию Я - А', 'desc'],
+    ['product_price', 'От дешевых к дорогим', 'asc'],
+    ['-product_price', 'От дорогих к дешевым', 'desc'],
+
+]
