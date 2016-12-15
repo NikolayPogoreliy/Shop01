@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block products_view %}
+    <div class="row column large-up-4">
+
+        {% for prod in object_list %}
+        <div class="column">
+            <a href="{% url "product" prod.id %}" target="_blank">{{ prod.product_name }}</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

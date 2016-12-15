@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static "static/css/foundation.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/foundation-icons.css'%}">
     <link rel="stylesheet" href="{% static "static/css/app.css" %}">
 </head>
 
@@ -50,6 +51,17 @@
 </header>
 
 <main class="row">
+ {% if crumbs %}
+    <nav class="row column menu-centered" aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+            {% for crumb in crumbs %}
+            <li {% if crumb.id == category.id %} class="disabled" {% endif %}>
+                <a href="{% url "categories" crumb.id %}">{{ crumb.category_name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
     {% block subcats %}{% endblock %}
 
 
@@ -87,8 +99,13 @@
 )*/{% endcomment %}
 
 {#            /*$('.ordering').removeAttr('selected');*/#}
-            $('#{{ selected }}').attr('selected','selected');
-{#            /*$('.ordering :selected').attr('selected','selected');*/#}
+        $('#sel_{{ request.session.sort }}').attr('selected','selected');
+        $('#lim_{{ request.session.limits }}').attr('selected','selected');
+        $('#view_{{ request.session.view }}').addClass('selected');
+
+        function setSelected() {
+
+        }
     </script>
 </body>
 </html>

@@ -1,17 +1,7 @@
 {% extends 'index.html' %}
 
 {% block subcats %}
-    {% if crumbs %}
-    <nav class="row column menu-centered" aria-label="You are here:" role="navigation">
-        <ul class="breadcrumbs">
-            {% for crumb in crumbs %}
-            <li {% if crumb.id == category.id %} class="disabled" {% endif %}>
-                <a href="{% url "categories" crumb.id %}">{{ crumb.category_name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </nav>
-    {% endif %}
+
 <div class="column large-2">
     <div class="column">
 
@@ -70,23 +60,55 @@
     </div>
     {% endif %}
     <div class="row column">
-        <div class="column large-3 large-offset-9">
-            <select onchange="location = this.value;" >
+        {#    Менюшка для выбора сетки/списка    #}
+        <div class="column large-1 " style="padding-left: 10px; padding-right: 10px">
+            <a id="view_0" class="fi-thumbnails view" href="{% url 'categories' category.id %}?view=0"></a>
+            <a id="view_1" class="fi-list view" href="{% url 'categories' category.id %}?view=1"></a>
+        </div>
+        {#    Менюшка для выбора метода сортировки выводимых товаров    #}
+        <div class="column large-3 large-offset-6 " style="padding-left: 10px; padding-right: 10px">
+            <p class="column large-4 sort">Сортировка: </p>
+            <select class="column large-8 sort" onchange="location = this.value;" >
                 {% for opt in sort_options %}
                 <option id="sel_{{ forloop.counter0 }}" value="{% url 'categories' category.id %}?sort={{ forloop.counter0 }}">{{ opt }}</option>
                 {% endfor %}
             </select>
         </div>
-    </div>
-    <div class="row column large-up-4">
-
-        {% for prod in products %}
-        <div class="column">
-            <a href="{% url "product" prod.id %}">{{ prod.product_name }}</a>
+        {#    Менюшка для выбора количества выводимых товаров    #}
+        <div class="column large-2" style="padding-left: 10px; padding-right: 10px; ">
+            <p class="column large-5 sort">Показать: </p>
+            <select class="column large-4 end sort" onchange="location = this.value;" >
+                {% for limit in limit_option %}
+                <option id="lim_{{ limit }}" value="{% url 'categories' category.id %}?limits={{ limit }}">{{ limit }}</option>
+                {% endfor %}
+            </select>
         </div>
-        {% endfor %}
     </div>
 
+    {#  Вывод товаров  #}
+    {% block products_view %}{% endblock %}
+    {#  Пагинация  #}
+    {% if paginator.num_pages > 1 %}
+    <div class="row column">
+        <ul class="pagination" role="navigation" aria-label="Pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="{% url 'categories' category.id %}?page={{ page_obj.previous_page_number }}"><</a> </li>
+        {% endif %}
+            {% for pn in paginator.page_range %}
+
+            {% if page_obj.number != pn %}
+                <li><a href="{% url 'categories' category.id %}?page={{ pn }}">{{ pn }}</a></li>
+            {% else %}
+                <li class="current">{{ pn }}</li>
+            {% endif %}
+
+            {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="{% url 'categories' category.id %}?page={{ page_obj.next_page_number }}">></a> </li>
+        {% endif %}
+        </ul>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

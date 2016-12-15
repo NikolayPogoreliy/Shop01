@@ -1,12 +1,7 @@
 {% extends 'index.html' %}
 
 {% block subcats %}
-<div> Bread crombs //
-    {% for crumb in crumbs %}
-        <a href="{% url "categories" crumb.id %}">{{ crumb.category_name }}</a> /
-    {% endfor %}
 
-</div>
 <div>
     <p>Product:    {{ product.product_name }}<br/></p>
     <p>color: {{ product_color }}</p>

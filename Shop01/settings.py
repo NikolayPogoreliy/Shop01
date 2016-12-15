@@ -143,10 +143,20 @@ STATICFILES_DIRS = [
 IMAGE_UPLOAD_DIR = 'img'
 
 PRODUCT_ORDERING_SET = [
-    ['product_ordering', 'По умолчанию','acs'],
-    ['product_name', 'По названию А - Я', 'asc'],
-    ['-product_name', 'По названию Я - А', 'desc'],
-    ['product_price', 'От дешевых к дорогим', 'asc'],
-    ['-product_price', 'От дорогих к дешевым', 'desc'],
+    ['product_ordering', 'По умолчанию'],
+    ['product_name', 'По названию А - Я'],
+    ['-product_name', 'По названию Я - А'],
+    ['product_price', 'От дешевых к дорогим'],
+    ['-product_price', 'От дорогих к дешевым'],
+]
 
+LIMITS_SET = [6,
+              24,
+              50,
+              100,
+              ]
+
+VIEW_SET = [
+    'grid_view.html',
+    'list_view.html',
 ]
