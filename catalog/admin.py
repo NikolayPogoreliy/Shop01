@@ -10,13 +10,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ManufacturerAdmin(admin.ModelAdmin):
-    list_display = ['manufacturer_name', 'pic']
-    search_fields = ['manufacturer_name']
+    list_display = ['name', 'pic']
+    search_fields = ['name']
 
 
 class ColorAdmin(admin.ModelAdmin):
-    list_display = ['color_name', 'pic']
-    search_fields = ['color_name']
+    list_display = ['name', 'pic']
+    search_fields = ['name']
 
 
 class ProductImagesInline(admin.StackedInline):
@@ -40,5 +40,6 @@ admin.site.register(mod.Color, ColorAdmin)
 admin.site.register(mod.Product, ProductAdmin)
 admin.site.register(mod.Material)
 admin.site.register(mod.Size)
+admin.site.register(mod.Density)
 admin.site.register(mod.Attributes)
 admin.site.register(mod.ProductModel)

@@ -87,3 +87,22 @@ select.column.sort{
     color: #dd0017;
     cursor: not-allowed;
 }
+
+.legend{
+    margin-top: 5px;
+    padding: 0 7px;
+    font-size: 12px;
+    border-bottom: #505050 dotted 1px;
+}
+
+.content{
+    max-height: 340px;
+    font-size: 13px;
+    overflow: auto;
+    padding: 0 1px;
+    margin-bottom: 16px;
+}
+
+.content input{
+    margin-bottom: 10px;
+}

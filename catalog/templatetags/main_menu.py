@@ -2,6 +2,7 @@ from django import template
 register = template.Library()
 
 from catalog.models import Category
+from django.conf import settings
 
 
 
@@ -20,3 +21,8 @@ def main_menu():
     #subcats = [[cat,Category.objects.filter(parent=cat)] for cat in cats]
     subcats = {cat: Category.objects.filter(parent=cat) for cat in cats}
     return {'cats':cats, 'subcats':subcats, 'tree_to_L2': dictl0}
+
+
+@register.simple_tag
+def get_filter_categories():
+    return {'flters': settings.FILTERS_SET}

@@ -45,14 +45,14 @@ class Category(MPTTModel):
 
 
 class Material(models.Model):
-    material_name = models.CharField(max_length=50, default='', verbose_name='Материал')
+    name = models.CharField(max_length=50, default='', verbose_name='Материал')
     material_description = models.CharField(max_length=200, blank=True, verbose_name='Описание')
     title = models.CharField(max_length=50, blank=True, verbose_name='Заголовок')
     metaDesc = models.CharField(max_length=100, blank=True, verbose_name='Мета описание')
     metaKey = models.CharField(max_length=150, default="", blank=True, verbose_name='Ключевые слова')
 
     def __str__(self):
-        return self.material_name
+        return self.name
 
     class Meta():
         verbose_name = 'Материал'
@@ -60,10 +60,10 @@ class Material(models.Model):
 
 
 class Size(models.Model):
-    size_name = models.CharField(max_length=40, default='', verbose_name='Размер')
+    name = models.CharField(max_length=40, default='', verbose_name='Размер')
 
     def __str__(self):
-        return self.size_name
+        return self.name
 
     class Meta:
         verbose_name = 'Размер'
@@ -72,11 +72,11 @@ class Size(models.Model):
 
 class Color(models.Model, ImageUploader):
     folder_name = 'colors'
-    color_name = models.CharField(max_length=40, verbose_name='Цвет')
+    name = models.CharField(max_length=40, verbose_name='Цвет')
     color_image = models.ImageField(upload_to=ImageUploader.make_upload_path, blank=True, verbose_name='Изображение' )
 
     def __str__(self):
-        return self.color_name
+        return self.name
 
     def pic(self):
         if self.color_image:
@@ -90,10 +90,10 @@ class Color(models.Model, ImageUploader):
 
 
 class ProductModel(models.Model):
-    productModel_name = models.CharField(max_length=100, blank=True, verbose_name='Тип модели')
+    name = models.CharField(max_length=100, blank=True, verbose_name='Тип модели')
 
     def __str__(self):
-        return self.productModel_name
+        return self.name
 
     class Meta:
         verbose_name = 'Тип модели'
@@ -102,12 +102,12 @@ class ProductModel(models.Model):
 
 class Manufacturer(models.Model, ImageUploader):
     folder_name = 'logo'
-    manufacturer_name = models.CharField(max_length=50, blank=True, verbose_name='Производитель')
+    name = models.CharField(max_length=50, blank=True, verbose_name='Производитель')
     manufacturer_logo = models.ImageField(upload_to=ImageUploader.make_upload_path, default='',blank=True, null=True, verbose_name='Логотип производителя')
     manufacturer_country = models.CharField(max_length=40, blank=True, verbose_name='Страна')
 
     def __str__(self):
-        return self.manufacturer_name
+        return self.name
 
     def pic(self):
         if self.manufacturer_logo:
@@ -122,14 +122,25 @@ class Manufacturer(models.Model, ImageUploader):
 
 
 class Attributes(models.Model):
-    attributes_name = models.CharField(max_length=30, blank=True, verbose_name='Дополнительные характеристики')
+    name = models.CharField(max_length=30, blank=True, verbose_name='Дополнительные характеристики')
 
     def __str__(self):
-        return self.attributes_name
+        return self.name
 
     class Meta:
         verbose_name = 'Дополнительный атрибут'
         verbose_name_plural = 'Дополнительные атрибуты'
+
+
+class Density(models.Model):
+    name = models.CharField(max_length=15, blank=True, verbose_name='Плотность')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Плотность'
+        verbose_name_plural = 'Плотность'
 
 
 class Product(models.Model, ImageUploader):
@@ -140,12 +151,15 @@ class Product(models.Model, ImageUploader):
                                              related_name='product_manufacturer')
     product_model = models.ForeignKey(ProductModel, blank=True, null=True, verbose_name='Модель',
                                       related_name='product_model')
+    product_density = models.ForeignKey(Density, blank=True, null=True, verbose_name='Плотность',
+                                        related_name='product_density')
     product_material = models.ForeignKey(Material,blank=True, null=True, default=None, verbose_name='Материал',
                                          related_name='product_material')
     product_size = models.ManyToManyField(Size, verbose_name='Размер', related_name='product_size')
     product_color = models.ManyToManyField(Color, verbose_name='Цвет', related_name='product_color')
     product_attributes = models.ManyToManyField(Attributes, blank=True, null=True, verbose_name='Атрибуты',
                                                 related_name='product_attributes')
+
     product_quantity = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Колличество на сайте')
     product_price = models.PositiveSmallIntegerField(null=True, verbose_name='Цена')
     product_image = models.ImageField(upload_to=ImageUploader.make_upload_path, blank=True, default='')
@@ -175,18 +189,6 @@ class Product(models.Model, ImageUploader):
         verbose_name_plural = 'Товары'
 
 
-# class ColorsToProduct(models.Model):
-#     target_id = models.ForeignKey(Product)
-#     source_id = models.ForeignKey(Color)
-#
-# class SizeToProduct(models.Model):
-#     target_id = models.ForeignKey(Product)
-#     source_id = models.ForeignKey(Size)
-#
-# class AttributesToProduct(models.Model):
-#     target_id = models.ForeignKey(Product)
-#     source_id = models.ForeignKey(Attributes)
-
 class Images(models.Model, ImageUploader):
     folder_name = 'images_productName'
     images_productName = models.ForeignKey(Product, blank=True, null=True, verbose_name='Продукт')
@@ -207,3 +209,5 @@ class Images(models.Model, ImageUploader):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+
+

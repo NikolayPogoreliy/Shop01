@@ -160,3 +160,14 @@ VIEW_SET = [
     'grid_view.html',
     'list_view.html',
 ]
+
+FILTERS_SET = [
+    ['Бренд', 'product_manufacturer'],
+    ['Плотность', 'product_density'],
+   #['Страна', ''],
+    ['Дополнительно', 'product_attributes'],
+    ['Модель', 'product_model'],
+    ['Состав', 'product_material'],
+    ['Размер', 'product_size'],
+    ['Цвет', 'product_color'],
+]

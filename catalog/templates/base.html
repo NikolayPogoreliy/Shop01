@@ -3,48 +3,76 @@
 {% block subcats %}
 
 <div class="column large-2">
-    <div class="column">
+    {% comment %}
+    {% get_filter_categories as filters_item %}
+    {% for filter in filters_item %}
 
-        <ul>
-            {% for size in product_size %}
-            <li>
-            {{ size }}
-            </li>
-            {% endfor %}
-        </ul>
+    {% endfor %}{% endcomment %}
+<form method="get" action="{% url 'categories' category.id %}">
+    <a class="hollow button alert tiny " type="reset" href="{% url 'categories' category.id %}?clrfilter=1"> сбросить фильтры</a>
+    <input class="hollow button success tiny expanded" type="submit" value="Показать">
 
-
-    </div>
-    <div class="column">
-
-        <ul>
-            {% for man in product_manufacturer %}
-            <li>{{ man }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="column">
-        <ul>
-            {% for mat in product_material %}
-            <li>{{ mat }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="column">
-        <ul>
-            {% for color in product_color %}
-            <li>{{ color }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="column">
-        <ul>
-            {%  for model in product_model %}
-            <li>{{ model }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
+    {% if product_size %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Размеры</legend>
+        <div class="large-12 column content">
+        {% for size in product_size %}
+            <input id="{{ size }}" name="product_size" type="checkbox" value="{{ size }}"><label for="{{ size }}">{{ size }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+    {% if product_density %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Плотность</legend>
+        <div class="large-12 column content">
+        {% for den in product_density %}
+            <input id="{{ den }}" name="product_density" type="checkbox" value="{{ den }}"><label for="{{ den }}">{{ den }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+    {% if product_manufacturer %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Бренды</legend>
+        <div class="large-12 column content">
+        {% for man in product_manufacturer %}
+            <input id="{{ man }}" name="product_manufacturer" type="checkbox" value="{{ man }}"><label for="{{ man }}">{{ man }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+    {% if product_material %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Состав</legend>
+        <div class="large-12 column content">
+        {% for mat in product_material %}
+            <input id="{{ mat }}" name="product_material" type="checkbox" value="{{ mat }}"><label for="{{ mat }}">{{ mat }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+    {% if product_color %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Цвет</legend>
+        <div class="large-12 column content">
+        {% for color in product_color %}
+            <input id="{{ color }}" name="product_color" type="checkbox" value="{{ color }}"><label for="{{ color }}">{{ color }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+    {% if product_model %}
+    <fieldset class="large-12 column">
+        <legend class="large-12 column legend">Модель</legend>
+        <div class="large-12 column content">
+        {%  for model in product_model %}
+            <input id="{{ model }}" type="checkbox" name="product_model" value="{{ model }}" ><label for="{{ model }}">{{ model }}</label><br/>
+        {% endfor %}
+        </div>
+    </fieldset>
+    {% endif %}
+</form>
 </div>
 
 <div class="column large-10">
@@ -109,6 +137,9 @@
         </ul>
     </div>
     {% endif %}
+    {{ attr }} <br/>
+    {{ products }}
+
 </div>
 
 {% endblock %}
