@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2803b005-7c60-4e26-bf39-d29a801f342c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/catalog/migrations/0008_auto_20161217_1347.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/catalog/migrations/0009_auto_20161217_2115.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Shop01/settings.py" afterPath="$PROJECT_DIR$/Shop01/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/catalog/admin.py" afterPath="$PROJECT_DIR$/catalog/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/catalog/models.py" afterPath="$PROJECT_DIR$/catalog/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/catalog/templates/base.html" afterPath="$PROJECT_DIR$/catalog/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/catalog/templatetags/main_menu.py" afterPath="$PROJECT_DIR$/catalog/templatetags/main_menu.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/catalog/views.py" afterPath="$PROJECT_DIR$/catalog/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/app.css" afterPath="$PROJECT_DIR$/static/css/app.css" />
     </list>
     <list id="aaba7ed0-88b0-4499-9d11-48417c3ebc64" name="New changelist" comment="" />
     <ignored path="Shop01.iws" />
@@ -47,7 +39,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Shop01/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="2890">
               <caret line="170" column="31" selection-start-line="170" selection-start-column="31" selection-end-line="170" selection-end-column="31" />
               <folding />
             </state>
@@ -82,7 +74,7 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalog/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="697">
               <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -91,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/catalog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="89" column="36" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="36" />
+            <state relative-caret-position="153">
+              <caret line="112" column="59" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="59" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -126,7 +118,7 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalog/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
+            <state relative-caret-position="187">
               <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
               <folding />
             </state>
@@ -163,11 +155,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_menu.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main_menu.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalog/templatetags/main_menu.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="459">
+              <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -188,7 +180,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1579">
+            <state relative-caret-position="1717">
               <caret line="101" column="73" selection-start-line="101" selection-start-column="73" selection-end-line="101" selection-end-column="73" />
               <folding />
             </state>
@@ -740,7 +732,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481839358189</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Прикрутил фильтрацию, &quot;ручной&quot; сброс фильтров">
+      <created>1482008857288</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1482008857288</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -756,11 +755,10 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23298033" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23676248" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -773,6 +771,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993174" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -817,7 +816,8 @@
     <MESSAGE value="Добавил чуть разметки" />
     <MESSAGE value="Прикрутил сортировку" />
     <MESSAGE value="Доделал сортировку, прикрутил отображение &quot;сетка/список&quot;, прикрутил выбор количества товаров на странице (все параметры хранятся в сессии). Чуть подпилил верстку." />
-    <option name="LAST_COMMIT_MESSAGE" value="Доделал сортировку, прикрутил отображение &quot;сетка/список&quot;, прикрутил выбор количества товаров на странице (все параметры хранятся в сессии). Чуть подпилил верстку." />
+    <MESSAGE value="Прикрутил фильтрацию, &quot;ручной&quot; сброс фильтров" />
+    <option name="LAST_COMMIT_MESSAGE" value="Прикрутил фильтрацию, &quot;ручной&quot; сброс фильтров" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1202,7 +1202,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1579">
+        <state relative-caret-position="1717">
           <caret line="101" column="73" selection-start-line="101" selection-start-column="73" selection-end-line="101" selection-end-column="73" />
           <folding />
         </state>
@@ -1210,7 +1210,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Shop01/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="2890">
           <caret line="170" column="31" selection-start-line="170" selection-start-column="31" selection-end-line="170" selection-end-column="31" />
           <folding />
         </state>
@@ -1226,7 +1226,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catalog/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="697">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -1263,27 +1263,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catalog/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
+        <state relative-caret-position="187">
           <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalog/templatetags/main_menu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/catalog/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="89" column="36" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="36" />
+        <state relative-caret-position="153">
+          <caret line="112" column="59" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="59" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/catalog/templatetags/main_menu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

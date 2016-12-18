@@ -45,6 +45,7 @@ class CategorysListView(ListView):
     cat = None
     lookup = {}
     filter_kwargs = {}
+    # Атрибуты, по которым будет выполнена фильтрация
     keys = [
         'product_color',
         'product_size',
@@ -59,39 +60,44 @@ class CategorysListView(ListView):
         if self.kwargs['cat_id']: 
             cat_id = self.kwargs['cat_id']
             self.cat = get_object_or_404(Category, id=cat_id)
-        #if request.GET:
 
+
+        # Метод сортировки
         try:
-            self.sort = request.GET['sort']
-            request.session['sort'] = self.sort
+            self.sort = request.GET['sort']             #Получаем GET-ом
+            request.session['sort'] = self.sort         # и сохраняем в сессии
         except:
-            self.sort = request.session.get('sort',0)
+            self.sort = request.session.get('sort',0)   # Если GET-а нет - берем из сессии
 
+        # Колличество товаров на странице для пагинатора
         try:
             self.paginate_by = int(request.GET['limits'])
             request.session['limits'] = self.paginate_by
         except:
             self.paginate_by = int(request.session.get('limits', settings.LIMITS_SET[0]))
 
+        # Метод отображения товаров - "список/сетка"
         try:
             template = int(request.GET['view'])
             request.session['view'] = template
         except:
             template = int(request.session.get('view', 0))
-        self.template_name = settings.VIEW_SET[template]
+        self.template_name = settings.VIEW_SET[template]  # Выбираем соответствующий шаблон
 
+        # Получение значений атрибутов для фильтрации товаров
         for key in self.keys:
             value = request.GET.getlist(key)
             if value:
                 self.lookup[key] = value
+
+        # Сброс фильтра
         try:
             if request.GET['clrfilter']:
                 self.lookup.clear()
-                self.filter_kwargs()
         except: pass
 
         self.filter_kwargs = {'{}__name__in'.format(key): value for key, value in self.lookup.items()}
-        self.template_name = settings.VIEW_SET[template]
+        #self.template_name = settings.VIEW_SET[template]
         return super(CategorysListView, self).get(request, *arg, **kwargs)
 
 
@@ -104,20 +110,14 @@ class CategorysListView(ListView):
         context['sort_options'] = [option[1] for option in settings.PRODUCT_ORDERING_SET]
         context['limit_option'] = settings.LIMITS_SET
 
-        context['attr'] = self.filter_kwargs
-        context['products'] = self.object_list.filter(**self.filter_kwargs)
-        context.update(get_product_attr(self.keys, *context['products']))
-        #context['characteristics'] = get_product_attr(self.keys, *self.object_list)
+        context.update(get_product_attr(self.keys, *self.object_list))
         return context
 
     def get_queryset(self):
-        # Получаем общий список товаров для всех категорий-потомков, и текущей категории
-        products = Product.objects.filter(product_category__in=self.cat.get_descendants(include_self=True)
-                                              ).order_by(settings.PRODUCT_ORDERING_SET[int(self.sort)][0])
+        # Получаем queryset - общий список товаров для всех категорий-потомков, и текущей категории, отфильтрованный и отсортированный
+        return Product.objects.filter(product_category__in=self.cat.get_descendants(include_self=True)
+                                   ).filter(**self.filter_kwargs).order_by(settings.PRODUCT_ORDERING_SET[int(self.sort)][0])
 
-        # return Product.objects.filter(product_category__in=self.cat.get_descendants(include_self=True)
-        #                               ).filter(**self.filter_kwargs).order_by(settings.PRODUCT_ORDERING_SET[int(self.sort)][0])
-        return products.filter(**self.filter_kwargs)
 
 class ProductDetailView(DetailView):
     template_name = 'product.html'
