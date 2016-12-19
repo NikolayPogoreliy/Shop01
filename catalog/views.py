@@ -12,6 +12,12 @@ def simple_test(request):
     return render(request, 'index.html')
 
 
+def get_productset_attr(keys_set, *args):
+    keys = [key[0] for key in keys_set]
+    return get_product_attr(keys, *args)
+
+
+
 def get_product_attr(keys, *args):
     ''' Return dict with atttributes values of one object, or sets of attributes values for many objects
     keys - list of attributes name (i.e. names of needed fields of record(s))
@@ -46,15 +52,7 @@ class CategorysListView(ListView):
     lookup = {}
     filter_kwargs = {}
     # Атрибуты, по которым будет выполнена фильтрация
-    keys = [
-        'product_color',
-        'product_size',
-        'product_attributes',
-        'product_material',
-        'product_model',
-        'product_manufacturer',
-        'product_density',
-    ]
+    keys = settings.FILTERS_SET
 
     def get(self, request, *arg, **kwargs):
         if self.kwargs['cat_id']: 
@@ -86,9 +84,9 @@ class CategorysListView(ListView):
 
         # Получение значений атрибутов для фильтрации товаров
         for key in self.keys:
-            value = request.GET.getlist(key)
+            value = request.GET.getlist(key[0])
             if value:
-                self.lookup[key] = value
+                self.lookup[key[0]] = value
 
         # Сброс фильтра
         try:
@@ -109,8 +107,9 @@ class CategorysListView(ListView):
 
         context['sort_options'] = [option[1] for option in settings.PRODUCT_ORDERING_SET]
         context['limit_option'] = settings.LIMITS_SET
-
-        context.update(get_product_attr(self.keys, *self.object_list))
+        context['filtering_keys'] = self.keys
+        #context.update(get_product_attr(self.keys, *self.object_list))
+        context['filtering_content'] = get_productset_attr(self.keys, *self.object_list)
         return context
 
     def get_queryset(self):

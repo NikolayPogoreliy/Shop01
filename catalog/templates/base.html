@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+{% load myfilters %}
 {% block subcats %}
 
 <div class="column large-2">
@@ -11,8 +11,21 @@
 <form method="get" action="{% url 'categories' category.id %}">
     <a class="hollow button alert tiny " type="reset" href="{% url 'categories' category.id %}?clrfilter=1"> сбросить фильтры</a>
     <input class="hollow button success tiny expanded" type="submit" value="Показать">
+    {% for key in filtering_keys %}
+{#        {{ filtering_content|get_value:key }}<br/>#}
+       {% if filtering_content|get_value:key.0 %}
+            <fieldset class="large-12 column">
+                <legend class="large-12 column legend">{{ key.1 }}</legend>
+                <div class="large-12 column content">
+                {% for item in filtering_content|get_value:key.0 %}
+                    <input id="{{ item }}" name="{{ key.0 }}" type="checkbox" value="{{ item }}"><label for="{{ item }}">{{ item }}</label><br/>
+                {% endfor %}
+                </div>
+            </fieldset>
+        {% endif %}
+    {% endfor %}
 
-    {% if product_size %}
+    {% comment %}{% if product_size %}
     <fieldset class="large-12 column">
         <legend class="large-12 column legend">Размеры</legend>
         <div class="large-12 column content">
@@ -72,7 +85,7 @@
         </div>
     </fieldset>
     {% endif %}
-</form>
+</form>{% endcomment %}
 </div>
 
 <div class="column large-10">
@@ -137,8 +150,8 @@
         </ul>
     </div>
     {% endif %}
-    {{ attr }} <br/>
-    {{ products }}
+    {{ filtering_keys }} <br/>
+    {{ filtering_content }}
 
 </div>
 

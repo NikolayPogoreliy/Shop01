@@ -161,13 +161,13 @@ VIEW_SET = [
     'list_view.html',
 ]
 
+# Filtering categories will be rendered in same order with FILTERS_SET's
 FILTERS_SET = [
-    ['Бренд', 'product_manufacturer'],
-    ['Плотность', 'product_density'],
-   #['Страна', ''],
-    ['Дополнительно', 'product_attributes'],
-    ['Модель', 'product_model'],
-    ['Состав', 'product_material'],
-    ['Размер', 'product_size'],
-    ['Цвет', 'product_color'],
+    ('product_color', 'Цвет'),
+    ('product_size', 'Размер'),
+    ('product_attributes', 'Дополнительно'),
+    ('product_material', 'Состав'),
+    ('product_model', 'Модель'),
+    ('product_manufacturer', 'Бренд'),
+    ('product_density', 'Плотность'),
 ]
