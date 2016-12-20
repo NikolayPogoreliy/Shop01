@@ -17,7 +17,6 @@ def get_productset_attr(keys_set, *args):
     return get_product_attr(keys, *args)
 
 
-
 def get_product_attr(keys, *args):
     ''' Return dict with atttributes values of one object, or sets of attributes values for many objects
     keys - list of attributes name (i.e. names of needed fields of record(s))
@@ -40,7 +39,6 @@ def get_product_attr(keys, *args):
                     attr[key].add(value)
 
     return attr
-
 
 
 class CategorysListView(ListView):
@@ -108,7 +106,6 @@ class CategorysListView(ListView):
         context['sort_options'] = [option[1] for option in settings.PRODUCT_ORDERING_SET]
         context['limit_option'] = settings.LIMITS_SET
         context['filtering_keys'] = self.keys
-        #context.update(get_product_attr(self.keys, *self.object_list))
         context['filtering_content'] = get_productset_attr(self.keys, *self.object_list)
         return context
 

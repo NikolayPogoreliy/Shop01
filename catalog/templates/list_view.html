@@ -3,8 +3,27 @@
     <div class="row column">
 
         {% for prod in object_list %}
-        <div class="column">
-            <a href="{% url "product" prod.id %}" target="_blank">{{ prod.product_name }}</a>
+        <div class="row column list-view">
+            <a href="{% url "product" prod_id=prod.id %}" target="_blank">
+                <div class="large-3 column list-image">
+                    <img src="/media/{{ prod.product_image }}" alt="{{ prod.product_name }}">
+                </div>
+            </a>
+
+            <div class="large-9 column end">
+                <div class="row column">
+                    <a class="bordered" href="{% url "product" prod_id=prod.id %}" target="_blank">{{ prod.product_name }}</a>
+                </div>
+                <div class="row column">
+                    {{ prod.product_description|truncatechars:'100' }}
+                </div>
+                <div class="row column">
+                    {{ prod.product_price|floatformat:"2" }}
+                </div>
+                <div class="row column">
+                    <a class="button" href="{% url "product" prod_id=prod.id %}" target="_blank">Купить</a>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>

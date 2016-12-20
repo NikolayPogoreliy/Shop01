@@ -1,16 +1,20 @@
 {% extends 'index.html' %}
 {% load myfilters %}
+{% load staticfiles %}
 {% block subcats %}
 
-<div class="column large-2">
-    {% comment %}
-    {% get_filter_categories as filters_item %}
-    {% for filter in filters_item %}
+<div class="column large-2" id="filter">
 
-    {% endfor %}{% endcomment %}
-<form method="get" action="{% url 'categories' category.id %}">
-    <a class="hollow button alert tiny " type="reset" href="{% url 'categories' category.id %}?clrfilter=1"> сбросить фильтры</a>
-    <input class="hollow button success tiny expanded" type="submit" value="Показать">
+<form method="get" action="{% url 'categories' cat_id=category.id %}">
+    <a class="hollow button alert tiny " type="reset" href="{% url 'categories' cat_id=category.id %}?clrfilter=1"> сбросить фильтры</a>
+    <div data-sticky-container>
+        <div data-sticky data-top-anchor="filter:top" data-options="marginTop:0;" style="width:100%">
+            <input class="hollow button success tiny expanded" type="submit" value="Показать">
+{#            <div class="title-bar-right"><!-- Content --></div>#}
+        </div>
+    </div>
+{#    <div id="first" class="large-12 column">Выбрать</div>#}
+{#    <input class="hollow button success tiny expanded" type="submit" value="Показать">#}
     {% for key in filtering_keys %}
 {#        {{ filtering_content|get_value:key }}<br/>#}
        {% if filtering_content|get_value:key.0 %}
@@ -25,76 +29,20 @@
         {% endif %}
     {% endfor %}
 
-    {% comment %}{% if product_size %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Размеры</legend>
-        <div class="large-12 column content">
-        {% for size in product_size %}
-            <input id="{{ size }}" name="product_size" type="checkbox" value="{{ size }}"><label for="{{ size }}">{{ size }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-    {% if product_density %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Плотность</legend>
-        <div class="large-12 column content">
-        {% for den in product_density %}
-            <input id="{{ den }}" name="product_density" type="checkbox" value="{{ den }}"><label for="{{ den }}">{{ den }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-    {% if product_manufacturer %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Бренды</legend>
-        <div class="large-12 column content">
-        {% for man in product_manufacturer %}
-            <input id="{{ man }}" name="product_manufacturer" type="checkbox" value="{{ man }}"><label for="{{ man }}">{{ man }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-    {% if product_material %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Состав</legend>
-        <div class="large-12 column content">
-        {% for mat in product_material %}
-            <input id="{{ mat }}" name="product_material" type="checkbox" value="{{ mat }}"><label for="{{ mat }}">{{ mat }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-    {% if product_color %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Цвет</legend>
-        <div class="large-12 column content">
-        {% for color in product_color %}
-            <input id="{{ color }}" name="product_color" type="checkbox" value="{{ color }}"><label for="{{ color }}">{{ color }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-    {% if product_model %}
-    <fieldset class="large-12 column">
-        <legend class="large-12 column legend">Модель</legend>
-        <div class="large-12 column content">
-        {%  for model in product_model %}
-            <input id="{{ model }}" type="checkbox" name="product_model" value="{{ model }}" ><label for="{{ model }}">{{ model }}</label><br/>
-        {% endfor %}
-        </div>
-    </fieldset>
-    {% endif %}
-</form>{% endcomment %}
 </div>
 
 <div class="column large-10">
+    <div class="row column"><h1 class="header-1-small bordered">{{ category.category_name }}</h1></div>
     {% if subcat %}
     <div class="row column menu-centered">
         <ul class="menu">
         {% for cats in  subcat%}
             <li>
-                <a href="{% url "categories" cats.id %}"><img src="/media/{{ cats.category_image }}" alt="{{ cats.category_name }}"></a>
+                <a class="thumbnail" href="{% url "categories" cat_id=cats.id %}">
+                    <img class="subcat" src="/media/{{ cats.category_image }}" alt="{{ cats.category_name }}">
+                    <p class="subcat">{{ cats.category_name }}</p>
+                </a>
+
             </li>
         {% endfor %}
         </ul>
@@ -103,15 +51,15 @@
     <div class="row column">
         {#    Менюшка для выбора сетки/списка    #}
         <div class="column large-1 " style="padding-left: 10px; padding-right: 10px">
-            <a id="view_0" class="fi-thumbnails view" href="{% url 'categories' category.id %}?view=0"></a>
-            <a id="view_1" class="fi-list view" href="{% url 'categories' category.id %}?view=1"></a>
+            <a id="view_0" class="fi-thumbnails view" href="{% url 'categories' cat_id=category.id %}?view=0"></a>
+            <a id="view_1" class="fi-list view" href="{% url 'categories' cat_id=category.id %}?view=1"></a>
         </div>
         {#    Менюшка для выбора метода сортировки выводимых товаров    #}
         <div class="column large-3 large-offset-6 " style="padding-left: 10px; padding-right: 10px">
             <p class="column large-4 sort">Сортировка: </p>
             <select class="column large-8 sort" onchange="location = this.value;" >
                 {% for opt in sort_options %}
-                <option id="sel_{{ forloop.counter0 }}" value="{% url 'categories' category.id %}?sort={{ forloop.counter0 }}">{{ opt }}</option>
+                <option id="sel_{{ forloop.counter0 }}" value="{% url 'categories' cat_id=category.id %}?sort={{ forloop.counter0 }}">{{ opt }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -120,7 +68,7 @@
             <p class="column large-5 sort">Показать: </p>
             <select class="column large-4 end sort" onchange="location = this.value;" >
                 {% for limit in limit_option %}
-                <option id="lim_{{ limit }}" value="{% url 'categories' category.id %}?limits={{ limit }}">{{ limit }}</option>
+                <option id="lim_{{ limit }}" value="{% url 'categories' cat_id=category.id %}?limits={{ limit }}">{{ limit }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -133,26 +81,23 @@
     <div class="row column">
         <ul class="pagination" role="navigation" aria-label="Pagination">
         {% if page_obj.has_previous %}
-            <li><a href="{% url 'categories' category.id %}?page={{ page_obj.previous_page_number }}"><</a> </li>
+            <li><a href="{% url 'categories' cat_id=category.id %}?page={{ page_obj.previous_page_number }}"><</a> </li>
         {% endif %}
             {% for pn in paginator.page_range %}
 
             {% if page_obj.number != pn %}
-                <li><a href="{% url 'categories' category.id %}?page={{ pn }}">{{ pn }}</a></li>
+                <li><a href="{% url 'categories' cat_id=category.id %}?page={{ pn }}">{{ pn }}</a></li>
             {% else %}
                 <li class="current">{{ pn }}</li>
             {% endif %}
 
             {% endfor %}
         {% if page_obj.has_next %}
-            <li><a href="{% url 'categories' category.id %}?page={{ page_obj.next_page_number }}">></a> </li>
+            <li><a href="{% url 'categories' cat_id=category.id %}?page={{ page_obj.next_page_number }}">></a> </li>
         {% endif %}
         </ul>
     </div>
     {% endif %}
-    {{ filtering_keys }} <br/>
-    {{ filtering_content }}
-
 </div>
 
 {% endblock %}

@@ -31,17 +31,20 @@ a:hover{
     border-collapse: collapse;
 }
 .breadcrumbs{
-    font-size: large;
-    align-content: center;
     vertical-align: middle;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0.5rem;
 }
 .breadcrumbs a{
     color: darkcyan;
 }
 
-.breadcrumbs .disabled a{
+.breadcrumbs .disabled a {
     color: darkred !important;
+    cursor: not-allowed;
+}
+
+.breadcrumbs li{
+    font-size: 16px;
 }
 .sort{
     height: 28px;
@@ -105,4 +108,79 @@ select.column.sort{
 
 .content input{
     margin-bottom: 10px;
+}
+
+a.thumbnail{
+    padding: 3px !important;
+}
+.header-1-small{
+    font-size: 22px;
+    padding-left: 5px;
+}
+
+.bordered{
+    border-bottom: 1px dotted #9e9e9e;
+}
+img.subcat{
+    margin: 0 !important;
+    width: 5.2em;
+    height: 5.2em;
+}
+
+p.subcat{
+    font-size: 10px;
+    margin: 3px 0 !important;
+}
+/*
+.sticky.is-stuck > .button.hollow{
+    background-color: #b9b9b9 !important;
+    border: 1px solid #5a9f22;
+    color: #5a9f22;
+    font-style: oblique;
+    font-size: 12px;
+    opacity: 0.6;
+}*/
+.grid-view{
+    margin:10px;
+    padding: 3px;
+    max-width: 14.85em;
+}
+.grid-view a{
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+.grid-image, .list-image {
+    margin: 0;
+    padding: 0;
+    width: 14em;
+    height: 14em;
+}
+
+.grid-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.list-view{
+    border: solid 4px #fefefe;
+    box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+    transition: box-shadow 200ms ease-out;
+    border-radius: 5px;
+    margin:0 1rem 1rem 1rem;
+    padding: 10px;
+}
+
+.list-view:hover{
+    box-shadow: 0 0 6px 1px rgba(80, 80, 80, 0.5);
+}
+
+.badge{
+    width:2rem;
+    height:2rem;
+}
+
+.badge.alert:hover{
+    color: #595959;
 }

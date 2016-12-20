@@ -6,7 +6,7 @@ from Shop01.utils import ImageUploader
 
 # Create your models here.
 
-class Category(MPTTModel):
+class Category(MPTTModel, ImageUploader):
     folder_name = 'category_name'
     category_name = models.CharField(max_length=255, blank=True, default='', verbose_name='Категория')
     parent = TreeForeignKey('self', null=True, blank=True, default=0, related_name='children')
@@ -38,10 +38,10 @@ class Category(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['category_name']
 
-    # def save(self):
-    #     if self.level < 3:
-    #         return super().save(self)
-    #     else:pass
+    def get_absolute_url(self):
+        return "/cat/%id/" % self.id
+
+
 
 
 class Material(models.Model):
@@ -161,7 +161,7 @@ class Product(models.Model, ImageUploader):
                                                 related_name='product_attributes')
 
     product_quantity = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Колличество на сайте')
-    product_price = models.PositiveSmallIntegerField(null=True, verbose_name='Цена')
+    product_price = models.FloatField(null=True, verbose_name='Цена')
     product_image = models.ImageField(upload_to=ImageUploader.make_upload_path, blank=True, default='')
     product_description = models.TextField(verbose_name='Описание')
     title = models.CharField(max_length=50, blank=True, verbose_name='Заголовок')

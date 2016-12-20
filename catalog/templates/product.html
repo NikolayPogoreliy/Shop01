@@ -2,7 +2,10 @@
 
 {% block subcats %}
 
-<div>
+<div class="row column">
+    <div class="large-4 column">
+        <img src="/media/{{ product.product_image }}" alt="{{ product.product_name }}">
+    </div>
     <p>Product:    {{ product.product_name }}<br/></p>
     <p>color: {{ product_color }}</p>
     <p>size: {{ product_size }}</p>

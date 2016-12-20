@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block products_view %}
+
     <div class="row column large-up-4">
 
         {% for prod in object_list %}
-        <div class="column">
-            <a href="{% url "product" prod.id %}" target="_blank">{{ prod.product_name }}</a>
+        <div class="column thumbnail grid-view" >
+            <a href="{% url "product" prod_id=prod.id %}" target="_blank">
+                <div class="column grid-image">
+                    <img src="/media/{{ prod.product_image }}" alt="{{ prod.product_name }}">
+                </div>
+            </a>
+            <div class="column grid-detail text-center">
+                <p>
+                    <a href="{% url "product" prod_id=prod.id %}" target="_blank">{{ prod.product_name }}</a>
+                </p>
+                <p>{{ prod.product_price|floatformat:"2" }}</p>
+            </div>
+            <div class="column grid-detail text-center">
+                <a href="{% url "product" prod_id=prod.id %}" target="_blank"><span class="badge alert"><i class="fi-shopping-cart view"></i></span></a>
+            </div>
         </div>
         {% endfor %}
     </div>

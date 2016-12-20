@@ -30,14 +30,14 @@
                 <div class="row large-up-6">
                     {% for keyl1, valuesl1 in valuel0.items %}
                         <div class="column">
-                            <p class="float-center"> <a href="{% url "categories" keyl1.id %}"> {{ keyl1.category_name}}</a></p>
+                            <p class="float-center"> <a href="{% url "categories" cat_id=keyl1.id %}"> {{ keyl1.category_name}}</a></p>
                             <div class="column large-6">
-                                <img class="thumbnail" src="{{ keyl1.category_image }}"/>
+                                <img class="thumbnail" src="/media/{{ keyl1.category_image }}"/>
                             </div>
                             <div class="column large-6">
                                 <ul class="no-bullet">
                                     {% for value in valuesl1%}
-                                        <li><a href="{% url "categories" value.id %}">{{ value.category_name }}</a> </li>
+                                        <li><a href="{% url "categories" cat_id=value.id %}">{{ value.category_name }}</a> </li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -57,7 +57,7 @@
         <ul class="breadcrumbs">
             {% for crumb in crumbs %}
             <li {% if crumb.id == category.id %} class="disabled" {% endif %}>
-                <a href="{% url "categories" crumb.id %}">{{ crumb.category_name }}</a>
+                <a href="{% url "categories" cat_id=crumb.id %}">{{ crumb.category_name }}</a>
             </li>
             {% endfor %}
         </ul>
