@@ -111,8 +111,8 @@ class CategorysListView(ListView):
 
     def get_queryset(self):
         # Получаем queryset - общий список товаров для всех категорий-потомков, и текущей категории, отфильтрованный и отсортированный
-        return Product.objects.filter(product_category__in=self.cat.get_descendants(include_self=True)
-                                   ).filter(**self.filter_kwargs).order_by(settings.PRODUCT_ORDERING_SET[int(self.sort)][0])
+        return Product.objects.filter(product_category__in=self.cat.get_descendants(include_self=True), product_pubDate__lte = datetime.now())\
+            .distinct().filter(**self.filter_kwargs).order_by(settings.PRODUCT_ORDERING_SET[int(self.sort)][0])
 
 
 class ProductDetailView(DetailView):
@@ -120,16 +120,22 @@ class ProductDetailView(DetailView):
     queryset = Product.objects.all()
     pk_url_kwarg = 'prod_id'
     context_object_name = 'product'
+    current_product = None
     keys = [
         'product_color',
         'product_size',
         'product_attributes',
     ]
 
+
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
 
         product = context['product']
+        context['images'] = Images.objects.filter(product=product.id)
+        product.product_views += 1
+        product.save()
+
         context['crumbs'] = Category.objects.get(id=product.product_category_id).get_ancestors(include_self=True)
 
         context.update(get_product_attr(self.keys, product))

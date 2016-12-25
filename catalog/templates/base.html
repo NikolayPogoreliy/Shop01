@@ -10,19 +10,23 @@
     <div data-sticky-container>
         <div data-sticky data-top-anchor="filter:top" data-options="marginTop:0;" style="width:100%">
             <input class="hollow button success tiny expanded" type="submit" value="Показать">
-{#            <div class="title-bar-right"><!-- Content --></div>#}
         </div>
     </div>
-{#    <div id="first" class="large-12 column">Выбрать</div>#}
-{#    <input class="hollow button success tiny expanded" type="submit" value="Показать">#}
     {% for key in filtering_keys %}
-{#        {{ filtering_content|get_value:key }}<br/>#}
-       {% if filtering_content|get_value:key.0 %}
+        {% if filtering_content|get_value:key.0 %}
             <fieldset class="large-12 column">
                 <legend class="large-12 column legend">{{ key.1 }}</legend>
                 <div class="large-12 column content">
                 {% for item in filtering_content|get_value:key.0 %}
-                    <input id="{{ item }}" name="{{ key.0 }}" type="checkbox" value="{{ item }}"><label for="{{ item }}">{{ item }}</label><br/>
+                    <input id="{{ item }}" name="{{ key.0 }}" type="checkbox" value="{{ item }}">
+                    <label for="{{ item }}">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.name }}" width="63%" height="63%">
+                        {% else %}
+                            <span>{{ item.name }}</span>
+                        {% endif %}
+                    </label>
+                    <br/>
                 {% endfor %}
                 </div>
             </fieldset>
@@ -99,7 +103,7 @@
     </div>
     {% endif %}
 </div>
-
+{{ object_list }}
 {% endblock %}
 
 

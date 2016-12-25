@@ -1,19 +1,53 @@
 {% extends 'index.html' %}
 
 {% block subcats %}
-
+<div class="row column"><h1 class="header-1-small">{{ product.product_name }}</h1> </div>
 <div class="row column">
     <div class="large-4 column">
-        <img src="/media/{{ product.product_image }}" alt="{{ product.product_name }}">
+        <img class="prod-image" src="/media/{{ product.product_image }}" alt="{{ product.product_name }}">
     </div>
-    <p>Product:    {{ product.product_name }}<br/></p>
+    <div class="large-8 column">
+        <form action="" method="post">
+            <fieldset class="large-12 column">
+            <legend class="large-2 columns"> Цвета </legend>
+            <div class="large-10 column">
+                {% for color in product_color %}
+                    <input style="display: none;" id="color_{{ color.name }}" type="radio" name="color" value="{{ color.id }}" >
+                    <label class="radio-label" onclick="$('.radio-label').removeClass('checked-label'); $(this).addClass('checked-label');" for="color_{{ color.name }}">
+                        <img src="/media/{{ color.image }}" alt="{{ color.name }}" width="45px" height="45px">
+                    </label>
+                {% endfor %}
+            </div>
+            </fieldset>
+
+            <fieldset class="large-12 column">
+            <legend class="large-2 columns"> Размеры </legend>
+            <div class="large-10 column">
+                {% for size in product_size %}
+                    <input style="display: none;" id="size_{{ size.name }}" type="radio" name="color" value="{{ size.id }}" >
+                    <label class="size-label" onclick="$('.size-label').removeClass('checked-label'); $(this).addClass('checked-label');" for="size_{{ size.name }}">
+                        <span>{{ size.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+            </fieldset>
+            <fieldset class="large-5 column">
+                <legend class="large-6 column"> Количество </legend>
+                <div class="large-6 column">
+                     <input id="quantity" type="number" min="1" max="{{ product.product_quantity }}" step="1" name="quantity"/>
+                </div>
+            </fieldset>
+            <button class="large-6 column button" type="submit">Купить</button>
+        </form>
+    </div>
     <p>color: {{ product_color }}</p>
     <p>size: {{ product_size }}</p>
     <p>material: {{ product.product_material }}</p>
     <p>manufacturer: {{ product.product_manufacturer }}</p>
     <p>model: {{ product.product_model }}</p>
     <p>Attributes: {{ product_attributes }}</p>
-    <p>{{ product.product_color }}</p>
+    <p>views{{ product.product_views }}</p>
+    <p>images{{ images }}</p>
     <div style="display: inline-block">
         <div>{{ color }}</div>
         <div>{{ size }}</div>
