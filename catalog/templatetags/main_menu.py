@@ -1,4 +1,5 @@
 from django import template
+from django.shortcuts import redirect
 register = template.Library()
 
 from catalog.models import Category
@@ -26,3 +27,5 @@ def main_menu():
 @register.simple_tag
 def get_filter_categories():
     return {'flters': settings.FILTERS_SET}
+
+

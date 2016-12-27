@@ -31,6 +31,22 @@ class Category(MPTTModel, ImageUploader):
     pic.short_description = 'Изображение'
     pic.allow_tag = True
 
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         this = Category.objects.get(id=self.id)
+    #         print(this.category_image.path)
+    #         print(self.category_image.path)
+    #         if this.category_image != self.category_image:
+    #             this.category_image.delete(save=False)
+    #     except:
+    #         pass
+    #     return super(Category, self).save(*args, **kwargs)
+    #
+    # def delete(self, *args, **kwargs):
+    #     print('go to delete',self.category_name)
+    #     self.category_image.delete(save=False)
+    #     return super(Category, self).delete(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -79,8 +95,22 @@ class Color(models.Model, ImageUploader):
         return self.name
 
     def pic(self):
-        if self.color_image:
-            return '<img src = "{}" width = "70" \>'.format(self.color_image.url)
+        if self.image:
+            return '<img src = "{}" width = "70" \>'.format(self.image.url)
+
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         this = Color.objects.get(id=self.id)
+    #         print(this.image.path)
+    #         if this.image != self.image:
+    #             this.image.delete(save=False)
+    #     except:
+    #         pass
+    #     return super(Color, self).save(*args, **kwargs)
+    #
+    # def delete(self, *args, **kwargs):
+    #     self.image.delete(save=False)
+    #     return super(Color, self).delete(*args, **kwargs)
 
     pic.allow_tag = True
 
@@ -122,6 +152,19 @@ class Manufacturer(models.Model, ImageUploader):
     def pic(self):
         if self.manufacturer_logo:
             return '<img src="{}" width="70" \>'.format(self.manufacturer_logo.url)
+
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         this = Manufacturer.objects.get(id=self.id)
+    #         if this.image != self.image:
+    #             this.image.delete(save=False)
+    #     except:
+    #         pass
+    #     return super(Manufacturer, self).save(*args, **kwargs)
+    #
+    # def delete(self, *args, **kwargs):
+    #     self.image.delete(save=False)
+    #     return super(Manufacturer, self).delete(*args, **kwargs)
 
     pic.short_description = 'Логотип'
     pic.allow_tag = True
@@ -194,6 +237,21 @@ class Product(models.Model, ImageUploader):
         if self.product_image:
             return '<img src="{}" width="70" \>'.format(self.product_image.url)
 
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         this_prod = Product.objects.get(id=self.id)
+    #         if this_prod.product_image != self.product_image:
+    #             this_prod.product_image.delete(save=False)
+    #     except:
+    #         pass
+    #     return super(Product, self).save(*args, **kwargs)
+    #
+    # def delete(self, *args, **kwargs):
+    #     self.product_image.delete(save=False)
+    #     for img in Images.objects.filter(product=self.id).values('images'):
+    #         img.delete(save=False)
+    #     return super(Product, self).delete(*args, **kwargs)
+
     pic.short_description = 'Изображение'
     pic.allow_tags = True
 
@@ -203,12 +261,16 @@ class Product(models.Model, ImageUploader):
 
 
 class Images(models.Model, ImageUploader):
-    folder_name = 'images_productName'
+    folder_name = 'product'
     product = models.ForeignKey(Product, blank=True, null=True, verbose_name='Продукт')
     images = models.ImageField(upload_to=ImageUploader.make_upload_path, verbose_name='Изображение')
 
     def __str__(self):
         return self.images.url
+    
+    # def delete(self, *args, **kwargs):
+    #     self.images.delete(save=False)
+    #     return super(Images, self).delete(*args, **kwargs)
 
     def pic(self):
         if self.images:

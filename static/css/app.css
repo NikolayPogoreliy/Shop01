@@ -208,3 +208,8 @@ p.subcat{
 .checked-label{
     border-color: #909090;
 }
+
+.is-show
+.shown{
+    display: block;
+}

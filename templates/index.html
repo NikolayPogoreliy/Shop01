@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% load main_menu %}
+{% load account socialaccount %}
+{% load account %}
 
 
 <!DOCTYPE html>
@@ -15,6 +17,15 @@
 <body>
 
 <header class="row">
+    <div class="row column">
+        {% if not request.user.is_authenticated %}
+            <a href="{% url 'account_login' %}" target="_blank">Вход</a>
+
+        {% else %}
+            {{ user }}:{{ user.is_authenticated }}
+            <a href="{% url 'account_logout' %}" onclick="$('.is-show').addClass('shown');">Logout</a>
+        {% endif %}
+    </div>
     {% main_menu as item %}
     <div class="row column large-up-8">
         <a class="column text-center" href="{% url "home" %}">Home</a>
@@ -22,37 +33,10 @@
             <a class="column text-center" href="{% url "categories" keyl0.id %}" data-toggle="{{ keyl0.id }}"> <div>{{ keyl0.category_name }}</div></a>
         {% endfor %}
     </div>
-    <div class="row column">
-        {% for keyl0, valuel0 in item.tree_to_L2.items %}
-            {% if valuel0 %}
-            <div class="dropdown-pane" id="{{ keyl0.id }}" data-dropdown data-hover="true" data-hover-pane="true" >
-
-                <div class="row large-up-6">
-                    {% for keyl1, valuesl1 in valuel0.items %}
-                        <div class="column">
-                            <p class="float-center"> <a href="{% url "categories" cat_id=keyl1.id %}"> {{ keyl1.category_name}}</a></p>
-                            <div class="column large-6">
-                                <img class="thumbnail" src="/media/{{ keyl1.category_image }}"/>
-                            </div>
-                            <div class="column large-6">
-                                <ul class="no-bullet">
-                                    {% for value in valuesl1%}
-                                        <li><a href="{% url "categories" cat_id=value.id %}">{{ value.category_name }}</a> </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-            </div>
-            {% endif %}
-        {% endfor %}
-    </div>
 </header>
 
 <main class="row">
- {% if crumbs %}
+    {% if crumbs %}
     <nav class="row column menu-centered" aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">
             {% for crumb in crumbs %}
@@ -64,22 +48,6 @@
     </nav>
     {% endif %}
     {% block subcats %}{% endblock %}
-
-
-    {% comment %}<div id="menu" >Категории уровня 0 {{ item.cats }} </div>
-    <div>Tree L0 to L2: {{ item.tree_to_L2 }}</div>{% endcomment %}
-    {% comment %}<ul>
-    {% for cat in item.cats %}
-        <li>{{ cat.category_name }}
-            <ul>
-                <li>ID: {{ cat.id }}</li>
-                <li>Parent: {{ cat.parent }}</li>
-                <li>Parent_id: {{ cat.parent_id }}</li>
-            </ul>
-        </li>
-    {% endfor %}
-    </ul>{% endcomment %}
-
 
 
 
