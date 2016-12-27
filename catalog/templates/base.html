@@ -3,8 +3,9 @@
 {% load staticfiles %}
 {% block subcats %}
 
-<div class="column large-2" id="filter">
+<aside class="column large-2" id="filter">
 
+{% if filtering_content.values|any_value %}
 <form method="get" action="{% url 'categories' cat_id=category.id %}">
     <a class="hollow button alert tiny " type="reset" href="{% url 'categories' cat_id=category.id %}?clrfilter=1"> сбросить фильтры</a>
     <div data-sticky-container>
@@ -33,7 +34,9 @@
         {% endif %}
     {% endfor %}
 
-</div>
+</form>
+{% endif %}
+</aside>
 
 <div class="column large-10">
     <div class="row column"><h1 class="header-1-small bordered">{{ category.category_name }}</h1></div>
@@ -103,7 +106,6 @@
     </div>
     {% endif %}
 </div>
-{{ object_list }}
 {% endblock %}
 
 

@@ -26,10 +26,23 @@ SECRET_KEY = '6$3t=byt@z!a)+9fo%l^+aqq)8*rc02)wzu2o+rbo#t7wkk7m1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.2', 'localhost', ]
+ALLOWED_HOSTS = ['127.0.0.2', 'shield-mes.in.ua', ]
 
+LOGIN_REDIRECT_URLNAME = '/'
+#ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL ='/'
+AUTHENTICATION_BACKENDS = (
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django_mptt_admin',
@@ -40,9 +53,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'catalog',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.vk',
 ]
 
+SITE_ID = 1
+SOCIALACCOUNT_ENABLED = True
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,6 +94,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                #'allauth.account.context_processors.account',
+                #'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
