@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'catalog',
+    'users',
 
     'allauth',
     'allauth.account',
@@ -85,6 +86,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  'templates',
                  'catalog/templates',
+                 'users/templates',
                  ]
         ,
         'APP_DIRS': True,

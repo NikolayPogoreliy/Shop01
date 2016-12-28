@@ -28,9 +28,9 @@
     </div>
     {% main_menu as item %}
     <div class="row column large-up-8">
-        <a class="column text-center" href="{% url "home" %}">Home</a>
-        {% for keyl0 in item.tree_to_L2.keys %}
-            <a class="column text-center" href="{% url "categories" keyl0.id %}" data-toggle="{{ keyl0.id }}"> <div>{{ keyl0.category_name }}</div></a>
+    <a class="column text-center" href="{% url "home" %}">Home</a>
+        {% for keyl0 in item.cats %}
+            <a class="column text-center" href="{% url "categories" cat_id=keyl0.id %}" > <div>{{ keyl0.category_name }}</div></a>
         {% endfor %}
     </div>
 </header>
@@ -48,6 +48,7 @@
     </nav>
     {% endif %}
     {% block subcats %}{% endblock %}
+    {% block content %}{% endblock %}
 
 
 

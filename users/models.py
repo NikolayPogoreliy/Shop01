@@ -9,7 +9,7 @@ class SocialIcon(models.Model, ImageUploader):
     image = models.ImageField(upload_to=ImageUploader.make_upload_path, blank=True, verbose_name='Иконка')
 
     def __str__(self):
-        return self.name
+        return self.name.name
 
     def pic(self):
         if self.image:

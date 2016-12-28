@@ -4,26 +4,6 @@ a:hover{
     color: #dd0017;
 }
 
-.dropdown-pane, .dropdown-pane>*{
-
-    z-index: 100;
-}
-
-.dropdown-pane{
-    position: relative;
-    left: 0 !important;
-    top: 0 !important;;
-    right: 80rem !important;
-    width: 80rem !important;
-    display:none;
-
-}
-
-.dropdown-pane.is-open{
-    display: inline-block;
-
-}
-
 
 /* TODO: must be deleted*/
 .row{
@@ -208,8 +188,9 @@ p.subcat{
 .checked-label{
     border-color: #909090;
 }
-
-.is-show
-.shown{
-    display: block;
+.or-login{
+    vertical-align: middle;
+}
+.smaller{
+    font-size: 0.7rem;
 }

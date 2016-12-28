@@ -1,6 +1,9 @@
 {% load socialaccount %}
-
+{% load user_templatetags %}
+{% load catalog_filters %}
 {% get_providers as socialaccount_providers %}
+{% get_social_icon as social_icon %}
+
 
 {% for provider in socialaccount_providers %}
     {% if provider.id == "openid" %}
@@ -15,7 +18,9 @@
     {% endif %}
     <li>
       <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+          <img src="/media/{{ social_icon|get_value:provider.name  }}" alt="{{provider.name}}">
+      </a>
     </li>
 {% endfor %}
 

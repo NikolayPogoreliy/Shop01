@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
-{% load myfilters %}
+{% load catalog_filters %}
 {% load staticfiles %}
-{% block subcats %}
+{% block content %}
 
 <aside class="column large-2" id="filter">
 
@@ -19,8 +19,8 @@
                 <legend class="large-12 column legend">{{ key.1 }}</legend>
                 <div class="large-12 column content">
                 {% for item in filtering_content|get_value:key.0 %}
-                    <input id="{{ item }}" name="{{ key.0 }}" type="checkbox" value="{{ item }}">
-                    <label for="{{ item }}">
+                    <input id="{{ item.name }}" name="{{ key.0 }}" type="checkbox" value="{{ item }}">
+                    <label for="{{ item.name }}" title="{{ item.name }}">
                         {% if item.image %}
                             <img src="{{ item.image.url }}" alt="{{ item.name }}" width="63%" height="63%">
                         {% else %}

@@ -4,43 +4,46 @@
 {% load account socialaccount %}
 
 {% block head_title %}Вход{% endblock %}
-
-{% block subcats %}
-
+{% load user_templatetags %}
+{% block content %}
+<div class="large-10 large-offset-1 column text-center">
 <h1>Добро пожаловать!!!</h1>
 
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
-<p>Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:</p>
 
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">or</div>
-
+<div class="large-5 column">
+    <p>Вы можете войти на сайт с помощью аккаунтов в социальных сетях: </p>
+      <ul class="socialaccount_providers menu">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+    {% include "socialaccount/snippets/login_extra.html" %}
 </div>
+<div class="large-1 column text-center or-login" > <span>ИЛИ</span> </div>
 
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.</p>
 {% endif %}
+<div class="large-6 column">
+    <p>Вы можете <a href="{{ signup_url }}">зарегистрироваться</a> (если Ве еще этого не сделали;)
+на сайте, и войти:</p>
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <div class="large-3 column"> <label for="id_login">Логин</label>   </div>
+        <div class="large-3 column large-offset-6"> <a href="{{ signup_url }}"><span class="smaller">Регистрация</span></a></div>
+        <div class="large-12 column">{{ form.login }}</div>
+        <div class="large-3 column"> <label for="id_password"><span>Пароль</span></label>      </div>
+        <div class="large-3 column large-offset-6"> <a href="{% url 'account_reset_password' %}"><span class="smaller">Забыли пароль?</span></a>   </div>
+        <div class="large-12 column">{{ form.password }}</div>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
-  <button class="button success" type="submit">Sign In</button>
-</form>
-
+        <div class="large-3 column text-center">
+            <label for="id_password"><span>Запомнить меня:</span></label>
+            {{ form.remember }}
+        </div>
+        <div class="large-9 column"><button class="button success expanded" type="submit">Войти</button>      </div>
+    </form>
+</div>
+</div>
 {% endblock %}
